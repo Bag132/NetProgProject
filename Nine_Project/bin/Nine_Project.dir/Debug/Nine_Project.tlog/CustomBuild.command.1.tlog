@@ -1,0 +1,10 @@
+^C:\USERS\MAINOT\DOCUMENTS\GITHUB\NINE_PROJECT\NINE_PROJECT\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project -BC:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project/bin --check-stamp-file C:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project/bin/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,10 @@
+^C:\USERS\MAINOT\DOCUMENTS\GITHUB\NINE_PROJECT\NINE_PROJECT\BIN\CMAKEFILES\B9145A0B8E293A1C3DFE986EE7253250\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project -BC:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project/bin --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project/bin/Nine_Project.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,32 @@
+﻿  Building Custom Rule C:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project/CMakeLists.txt
+  glad.c
+  Nine_Project.cpp
+  GameState.cpp
+GameState.cpp(12,16): warning C4305: '=': truncation from 'double' to 'float'
+GameState.cpp(63,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+GameState.cpp(68,17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+GameState.cpp(69,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+GameState.cpp(69,21): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  PixelBuffer.cpp
+PixelBuffer.cpp(23,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+PixelBuffer.cpp(23,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+PixelBuffer.cpp(23,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+PixelBuffer.cpp(23,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Raycaster.cpp
+Raycaster.cpp(10,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Raycaster.cpp(22,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Raycaster.cpp(22,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Raycaster.cpp(38,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Raycaster.cpp(38,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Topdown.cpp
+Topdown.cpp(39,69): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+Topdown.cpp(39,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Vector2.cpp
+Vector2.cpp(13,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Vector2.cpp(13,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Vector2.cpp(16,36): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Vector2.cpp(20,32): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Vector2.cpp(20,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+Vector2.cpp(28,13): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  Nine_Project.vcxproj -> C:\Users\mainot\Documents\GitHub\Nine_Project\Nine_Project\bin\Debug\Nine_Project.exe

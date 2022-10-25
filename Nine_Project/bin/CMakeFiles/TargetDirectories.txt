@@ -1,0 +1,3 @@
+C:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project/bin/CMakeFiles/Nine_Project.dir
+C:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project/bin/CMakeFiles/ALL_BUILD.dir
+C:/Users/mainot/Documents/GitHub/Nine_Project/Nine_Project/bin/CMakeFiles/ZERO_CHECK.dir
