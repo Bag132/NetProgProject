@@ -1,0 +1,35 @@
+﻿  DrawShapes.cpp
+  GameState.cpp
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\GameState.cpp(12,16): warning C4305: '=': truncation from 'double' to 'float'
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\GameState.cpp(63,27): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\GameState.cpp(68,17): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\GameState.cpp(69,24): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\GameState.cpp(69,21): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+  Nine_Project.cpp
+  PixelBuffer.cpp
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\PixelBuffer.cpp(23,44): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\PixelBuffer.cpp(23,37): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\PixelBuffer.cpp(23,30): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\PixelBuffer.cpp(23,21): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+  Raycaster.cpp
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Raycaster.cpp(10,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Raycaster.cpp(22,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Raycaster.cpp(22,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Raycaster.cpp(38,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Raycaster.cpp(38,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Topdown.cpp
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Topdown.cpp(39,69): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Topdown.cpp(39,96): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+  Vector2.cpp
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Vector2.cpp(13,53): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Vector2.cpp(13,28): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Vector2.cpp(16,36): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Vector2.cpp(20,32): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Vector2.cpp(20,22): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+C:\Users\Victor\source\repos\NetProgProject\RaycastGame\bin\Vector2.cpp(28,13): warning C4244: 'return': conversion from 'double' to 'float', possible loss of data
+  Generating code
+  73 of 177 functions (41.2%) were compiled, the rest were copied from previous compilation.
+    1 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  RaycastGame.vcxproj -> C:\Users\Victor\source\repos\NetProgProject\x64\Release\RaycastGame.exe
