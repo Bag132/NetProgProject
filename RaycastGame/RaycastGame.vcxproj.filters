@@ -15,57 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="opengl\glad.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\opengl\glad.c">
+    <ClCompile Include="bin\Vector2.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\Nine_Project.cpp">
+    <ClCompile Include="bin\Nine_Project.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\DrawShapes.cpp">
+    <ClCompile Include="bin\DrawShapes.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\GameState.cpp">
+    <ClCompile Include="bin\GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\PixelBuffer.cpp">
+    <ClCompile Include="bin\PixelBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\RaycastEngine.cpp">
+    <ClCompile Include="bin\Raycaster.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Raycaster.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Topdown.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Vector2.cpp">
+    <ClCompile Include="bin\Topdown.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\Nine_Project.h">
+    <ClInclude Include="bin\DrawShapes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\DrawShapes.h">
+    <ClInclude Include="bin\GameState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\GameState.h">
+    <ClInclude Include="bin\PixelBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\PixelBuffer.h">
+    <ClInclude Include="bin\Raycaster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Raycaster.h">
+    <ClInclude Include="bin\Topdown.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Topdown.h">
+    <ClInclude Include="bin\Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Vector2.h">
+    <ClInclude Include="bin\Nine_Project.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

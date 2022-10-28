@@ -151,25 +151,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\DrawShapes.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\GameState.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\PixelBuffer.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\RaycastEngine.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Raycaster.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Topdown.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Vector2.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\NetProgProject\Nine_Project\Nine_Project.cpp" />
-    <ClCompile Include="..\..\..\..\Documents\opengl\glad.c" />
-    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="bin\DrawShapes.cpp" />
+    <ClCompile Include="bin\GameState.cpp" />
+    <ClCompile Include="bin\Nine_Project.cpp" />
+    <ClCompile Include="bin\PixelBuffer.cpp" />
+    <ClCompile Include="bin\Raycaster.cpp" />
+    <ClCompile Include="bin\Topdown.cpp" />
+    <ClCompile Include="bin\Vector2.cpp" />
+    <ClCompile Include="opengl\glad.c" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\DrawShapes.h" />
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\GameState.h" />
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\PixelBuffer.h" />
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Raycaster.h" />
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Topdown.h" />
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\bin\Vector2.h" />
-    <ClInclude Include="..\..\..\..\Documents\NetProgProject\Nine_Project\Nine_Project.h" />
+    <ClInclude Include="bin\DrawShapes.h" />
+    <ClInclude Include="bin\GameState.h" />
+    <ClInclude Include="bin\Nine_Project.h" />
+    <ClInclude Include="bin\PixelBuffer.h" />
+    <ClInclude Include="bin\Raycaster.h" />
+    <ClInclude Include="bin\Topdown.h" />
+    <ClInclude Include="bin\Vector2.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
