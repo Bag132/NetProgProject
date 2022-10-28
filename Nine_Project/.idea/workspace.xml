@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated>
+      <config projectName="Nine_Project" targetName="Nine_Project" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" GENERATION_OPTIONS="-DCMAKE_TOOLCHAIN_FILE=C:/Users/lombav/Documents/vcpkg/scripts/buildsystems/vcpkg.cmake" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="83f1ab9c-ac66-458d-879a-db8f737c7505" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/bin/CMakeFiles/rules.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/VSWorkspaceState.json" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/VSWorkspaceState.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/cmake.db" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/cmake.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.vs/slnx.sqlite" beforeDir="false" afterPath="$PROJECT_DIR$/.vs/slnx.sqlite" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/x64/Debug/ZERO_CHECK/ZERO_CHECK.tlog/ZERO_CHECK.lastbuildstate" beforeDir="false" afterPath="$PROJECT_DIR$/bin/x64/Debug/ZERO_CHECK/ZERO_CHECK.tlog/ZERO_CHECK.lastbuildstate" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/.cmake/api/v1/reply/cache-v2-be05919d13c1306ec02f.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/.cmake/api/v1/reply/cmakeFiles-v1-28b9b92291e436f53a0d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/.cmake/api/v1/reply/codemodel-v2-215c18118ac1febba60a.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/.cmake/api/v1/reply/index-2021-10-15T14-34-56-0453.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/.cmake/api/v1/reply/target-Nine_Project-Debug-c46117173d7f966bb0b7.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/.cmake/api/v1/reply/toolchains-v1-70dd91c3a972b48ec79d.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/.ninja_deps" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/.ninja_log" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeCache.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/build/x64-Debug/CMakeCache.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CMakeCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CMakeCXXCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CMakeRCCompiler.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CMakeSystem.cmake" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdC/CMakeCCompilerId.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdC/CMakeCCompilerId.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdC/CMakeCCompilerId.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.cpp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/3.20.21032501-MSVC_2/CompilerIdCXX/CMakeCXXCompilerId.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/CMakeOutput.log" beforeDir="false" afterPath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/CMakeOutput.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/Nine_Project.dir/Nine_Project.cpp.obj" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/Nine_Project.dir/embed.manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/Nine_Project.dir/intermediate.manifest" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/Nine_Project.dir/manifest.rc" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/Nine_Project.dir/manifest.res" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/Nine_Project.dir/vc140.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/Nine_Project.dir/vc140.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/ShowIncludes/main.obj" beforeDir="false" afterPath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/ShowIncludes/main.obj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/TargetDirectories.txt" beforeDir="false" afterPath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/TargetDirectories.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/rules.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/out/build/x64-Debug/CMakeFiles/rules.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/Nine_Project.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/Nine_Project.ilk" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/Nine_Project.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/out/build/x64-Debug/Testing/Temporary/LastTest.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/build.ninja" beforeDir="false" afterPath="$PROJECT_DIR$/out/build/x64-Debug/build.ninja" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/build/x64-Debug/cmake_install.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/out/build/x64-Debug/cmake_install.cmake" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2021" />
+    <option name="minorVersion" value="3.4" />
+  </component>
+  <component name="ProjectId" id="2GeIIZz9e7N4B3Eek8YwiaHZqpL" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
+    <property name="cidr.known.project.marker" value="true" />
+    <property name="cmake.loaded.for.project" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/bin/CMakeFiles" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="CMakeSettings" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\lombav\Documents\NetProgProject\Nine_Project\bin\CMakeFiles" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Nine_Project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="Nine_Project" TARGET_NAME="Nine_Project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Nine_Project" RUN_TARGET_NAME="Nine_Project">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="83f1ab9c-ac66-458d-879a-db8f737c7505" name="Changes" comment="" />
+      <created>1666742546016</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1666742546016</updated>
+      <workItem from="1666742547496" duration="72000" />
+      <workItem from="1666742709287" duration="17000" />
+      <workItem from="1666751049712" duration="930000" />
+      <workItem from="1666752068720" duration="1845000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
