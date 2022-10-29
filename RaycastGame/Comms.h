@@ -4,41 +4,59 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <thread>
 
 #define DEFAULT_PORT 777
+
+WSAData* wsa = nullptr;
+
+std::string format(std::string s1, std::string s2)
+{
+	size_t const wSize = s1.size() + 1;
+	char* const w = new char[wSize];
+	std::copy(s1.begin(), s1.end(), w);
+	sprintf_s(w, wSize, s2.c_str());
+	std::string result = w;
+	delete[] w;
+	return result;
+}
 
 class Server
 {
 public:
-	static Server& getInstance()
-	{
-		static Server instance;
-		return instance;
-	}
+	Server();
+	~Server();
+
 
 	int acceptClient();
 	int acceptClient(u_short port);
 	
 private:
-	Server();
 	u_short port;
-	WSAData wsa;
 	SOCKET serverSocket;
 	struct sockaddr_in server;
 
-	static std::string format(std::string s1, std::string s2)
-	{
-		char* w = new char[s1.size() + 1];
-		std::copy(s1.begin(), s1.end(), w);
-		sprintf(w, s2.c_str());
-		std::string result = w;
-		delete[] w;
-		return result;
-	}
 };
 
 
 class Client
 {
+public:
+	static Client& getInstance()
+	{
+		static Client instance;
+		return instance;
+	}
 
+	int Connect(std::string ipv4, u_short port);
+	int Send(std::string message);
+
+	void testComms()
+	{
+	}
+
+private:
+	Client();
+	SOCKET serverSocket = 0;
 };
+

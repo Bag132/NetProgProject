@@ -2,6 +2,7 @@
 //
 
 #include "Nine_Project.h"
+#include "Comms.h"
 
 GLFWwindow* window;
 GameState gamestate;
@@ -82,7 +83,13 @@ void mouse(GLFWwindow* window, double x, double y) {
 	gamestate.mouse(x, y);
 }
 
+#include <thread>
 int main() {
+	Server server();
+	std::thread acceptThread(&Server::acceptClient, &server);
+	Client client = Client::getInstance();
+	exit(0);
+
 	window = initWindow();
 	gamestate = GameState(Vector2(2, 2));
 	//glfwSetKeyCallback(window, input);
