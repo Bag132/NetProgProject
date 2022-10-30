@@ -3,6 +3,8 @@
 
 #include "Nine_Project.h"
 #include "Comms.h"
+#include <thread>
+
 
 GLFWwindow* window;
 GameState gamestate;
@@ -83,11 +85,20 @@ void mouse(GLFWwindow* window, double x, double y) {
 	gamestate.mouse(x, y);
 }
 
-#include <thread>
 int main() {
-	Server server();
-	std::thread acceptThread(&Server::acceptClient, &server);
+	Server server((u_short) 777);
+	std::thread acceptThread(&Server::AcceptClient, &server);
+
+	while (!server.IsListening());
+
+	printf("Creating client\n");
+
 	Client client = Client::getInstance();
+	client.Connect("127.0.0.1", (u_short)777);
+	client.Send("Rich fart");
+	std::cout << "N\n";
+	int n;
+	std::cin >> n;
 	exit(0);
 
 	window = initWindow();

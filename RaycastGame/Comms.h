@@ -8,33 +8,39 @@
 
 #define DEFAULT_PORT 777
 
-WSAData* wsa = nullptr;
-
-std::string format(std::string s1, std::string s2)
+class WSA
 {
-	size_t const wSize = s1.size() + 1;
-	char* const w = new char[wSize];
-	std::copy(s1.begin(), s1.end(), w);
-	sprintf_s(w, wSize, s2.c_str());
-	std::string result = w;
-	delete[] w;
-	return result;
-}
+public:
+	WSA(const WSA&) = delete;
+	void operator=(const WSA&) = delete;
+
+	static WSA& GetInstance()
+	{
+		static WSA instance;
+		return instance;
+	}
+	WSAData* GetWSAData();
+	
+private:
+	WSA();
+	WSAData wsaData;
+	
+};
 
 class Server
 {
 public:
-	Server();
+	Server(u_short port);
 	~Server();
 
-
-	int acceptClient();
-	int acceptClient(u_short port);
+	int AcceptClient();
+	bool IsListening();
 	
 private:
 	u_short port;
 	SOCKET serverSocket;
 	struct sockaddr_in server;
+	bool listening;
 
 };
 
