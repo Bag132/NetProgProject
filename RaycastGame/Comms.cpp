@@ -78,13 +78,18 @@ int Server::AcceptClient()
     {
         getpeername(clientSocket, (struct sockaddr*)&sockInfo, &addrSize);
         SOCKADDR_IN* clientSockInfo = new SOCKADDR_IN(sockInfo);
-        char ipbuf[15];
-        const char* ip = inet_ntop(AF_INET, clientSockInfo, ipbuf, 15);
-        printf("Connection recieved from %s\n", ip);
+//        char ipbuf[15];
+ //       const char* ip = inet_ntop(AF_INET, clientSockInfo, ipbuf, 15);
+        printf("Connection recieved");
         
+        int readlen = 50;
+        char* readbuf = (char*) calloc(readlen, sizeof(char));
+        recv(clientSocket, readbuf, 50, 0);
+        std::cout << "Recieved '" << readbuf << "'" << std::endl;
+
         closesocket(clientSocket);
         delete clientSockInfo;
-        delete ip;
+//        delete ip[];
     }
     
     return 0;

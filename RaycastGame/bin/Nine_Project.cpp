@@ -96,9 +96,9 @@ int main() {
 	Client client = Client::getInstance();
 	client.Connect("127.0.0.1", (u_short)777);
 	client.Send("Rich fart");
-	std::cout << "N\n";
-	int n;
-	std::cin >> n;
+	std::cout << "> ";
+	std::string input;
+	std::getline(std::cin, input);
 	exit(0);
 
 	window = initWindow();
