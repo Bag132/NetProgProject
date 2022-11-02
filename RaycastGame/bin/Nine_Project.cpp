@@ -4,7 +4,10 @@
 #include "Nine_Project.h"
 #include "Comms.h"
 #include <thread>
-
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <string>
 
 GLFWwindow* window;
 GameState gamestate;
@@ -92,14 +95,16 @@ int main() {
 	while (!server.IsListening());
 
 	printf("Creating client\n");
+	std::string ip = "127.0.0.1";
 
 	Client client;
-	std::thread(&Client::Connect, &client, std::string("127.0.0.1"));
+//	client.SetIP(ip);
+	std::thread clientThread(&Client::Connect, &client, ip);
 
 	std::string e;
 	puts("Bruh\n");
+	
 	std::getline(std::cin, e);
-	printf("AFter getline\n");
 	server.startGame(false);
 	acceptThread.join();
 	std::cout.flush();

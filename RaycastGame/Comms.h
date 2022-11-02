@@ -50,7 +50,7 @@ public:
 	bool IsListening();
 	bool IsServing();
 	bool serving = false;
-	void stop();
+	void Stop();
 	
 private:
 	void recieveWorker(SOCKET*, SOCKET*);
@@ -73,11 +73,13 @@ private:
 class Client
 {
 public:
-	int Connect(std::string ipstring);
+	void SetIP(std::string ip);
+	int Connect(std::string ip);
 	int Send(std::string message);
 	int Join();
 
 private:
 	SOCKET serverSocket = 0;
+	std::string ip;
 };
 
