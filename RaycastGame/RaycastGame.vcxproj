@@ -165,6 +165,7 @@
     <ClCompile Include="bin\Vector2.cpp" />
     <ClCompile Include="Comms.cpp" />
     <ClCompile Include="opengl\glad.c" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bin\DrawShapes.h" />
@@ -175,6 +176,7 @@
     <ClInclude Include="bin\Topdown.h" />
     <ClInclude Include="bin\Vector2.h" />
     <ClInclude Include="Comms.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

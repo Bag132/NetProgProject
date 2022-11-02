@@ -86,19 +86,23 @@ void mouse(GLFWwindow* window, double x, double y) {
 }
 
 int main() {
-	Server server((u_short) 777);
-	std::thread acceptThread(&Server::AcceptClient, &server);
+	Server server;
+	std::thread acceptThread(&Server::Serve, &server);
 
 	while (!server.IsListening());
 
 	printf("Creating client\n");
 
-	Client client = Client::getInstance();
-	client.Connect("127.0.0.1", (u_short)777);
-	client.Send("Rich fart");
-	std::cout << "> ";
-	std::string input;
-	std::getline(std::cin, input);
+	Client client;
+	std::thread(&Client::Connect, &client, std::string("127.0.0.1"));
+
+	std::string e;
+	puts("Bruh\n");
+	std::getline(std::cin, e);
+	printf("AFter getline\n");
+	server.startGame(false);
+	acceptThread.join();
+	std::cout.flush();
 	exit(0);
 
 	window = initWindow();

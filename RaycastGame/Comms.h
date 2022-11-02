@@ -4,9 +4,21 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <mutex>
 #include <thread>
 
 #define DEFAULT_PORT 777
+#define DEFAULT_PORT_UDP 778
+#define DEFAULT_RECV_LEN 512
+#define LEAVE_COMMAND "LEAVE"
+#define LEAVE_COMMAND_SIZE 5
+#define START_GAME_COMMAND "STARTGAME"
+#define START_GAME_COMMAND_SIZE 10
+
+#define JOIN_COMMAND "JOIN"
+#define JOIN_COMMAND_SIZE 4
+#define START_RECIEVED "STARTRECVD"
+#define START_RECIEVED_SIZE 11
 
 class WSA
 {
@@ -30,17 +42,30 @@ private:
 class Server
 {
 public:
-	Server(u_short port);
+	Server();
 	~Server();
 
-	int AcceptClient();
+	int Serve();
+	int startGame(bool alone);
 	bool IsListening();
+	bool IsServing();
+	bool serving = false;
+	void stop();
 	
 private:
+	void recieveWorker(SOCKET*, SOCKET*);
+
+	std::mutex waitForStart;
 	u_short port;
 	SOCKET serverSocket;
 	struct sockaddr_in server;
-	bool listening;
+	std::thread recieveThread, sendThread;
+	bool listening = false,
+		opponentJoined = false,
+		inLobby = false,
+		stopped = true,
+		start = false,
+		gameStarted = false;
 
 };
 
@@ -48,21 +73,11 @@ private:
 class Client
 {
 public:
-	static Client& getInstance()
-	{
-		static Client instance;
-		return instance;
-	}
-
-	int Connect(std::string ipv4, u_short port);
+	int Connect(std::string ipstring);
 	int Send(std::string message);
-
-	void testComms()
-	{
-	}
+	int Join();
 
 private:
-	Client();
 	SOCKET serverSocket = 0;
 };
 
