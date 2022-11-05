@@ -246,6 +246,11 @@ Server::~Server()
 
 // ------------------- Client -------------------
 
+Client::Client()
+{
+	WSA::GetInstance();
+}
+
 /// <summary>
 /// Joins a host and runs client code
 /// </summary>
@@ -276,6 +281,12 @@ int Client::Connect(std::string ip)
 
 	// Stuff to correspond with server
 	SOCKET udpSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+	struct sockaddr_in udpServerInfo;
+	udpServerInfo.sin_family = AF_INET;
+	udpServerInfo.sin_addr.s_addr = INADDR_ANY;
+	udpServerInfo.sin_port = htons(DEFAULT_PORT_UDP);
+	bind(udpSocket, (struct sockaddr*) &udpServerInfo, sizeof(udpServerInfo));
+
 	struct sockaddr_in opponentInfo;
 	int opponentInfoLen = sizeof(opponentInfo);
 
@@ -294,8 +305,8 @@ int Client::Connect(std::string ip)
 				gameStarted = true;
 
 				opponentInfo.sin_family = AF_INET;
-				opponentInfo.sin_port = htons(778);
-				inet_pton(AF_INET, ip.c_str(), (void*)&server.sin_addr.s_addr);
+				opponentInfo.sin_port = htons(DEFAULT_PORT_UDP);
+				inet_pton(AF_INET, ip.c_str(), &opponentInfo.sin_addr.s_addr);
 
 				printf("Client: Start command recieved\n");
 				if (send(serverSock, START_RECIEVED, START_RECIEVED_SIZE, 0) == SOCKET_ERROR)
@@ -325,24 +336,45 @@ int Client::Connect(std::string ip)
 	} while (recvResult > 0);
 
 	const char* testMessage = "From client";
-	printf("Client: UDP loop started\n");
-	// UDP
+	printf("Client: UDP send loop started\n");
+	std::thread recieveThread(&Client::recieveWorker, this, &udpSocket);
 	while (gameStarted)
 	{
 		if (sendto(udpSocket, testMessage, 12, 0, (struct sockaddr*) &opponentInfo, opponentInfoLen) == SOCKET_ERROR)
 		{
-			printf("Client: Error sending\n");
+			printf("Client: sendto() failed with error %d\n", WSAGetLastError());
 		}
 		else
 		{
 			printf("Client: Sent '%s'\n", testMessage);
-			std::this_thread::sleep_for(std::chrono::milliseconds(30));
+			std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		}
 	}
 	printf("Client UDP loop ended\n");
 
 	this->serverSocket = serverSock;
 	return 0;
+}
+
+void Client::recieveWorker(SOCKET* udpSocket)
+{
+	const u_int recvBufSize = 50;
+	char recvBuf[recvBufSize];
+	sockaddr_in opponent;
+	int opponentSize = sizeof(opponent);
+	printf("Client: Recieve loop started\n");
+	while (true)
+	{
+		memset(recvBuf, '\0', recvBufSize);
+		if (recvfrom(*udpSocket, recvBuf, recvBufSize, 0, (sockaddr*)&opponent, &opponentSize) == SOCKET_ERROR)
+		{
+			printf("Client: recvfrom() failed with error code : %d\n", WSAGetLastError());
+		}
+		else
+		{
+			printf("Client: UDP recieved: '%s'\n", recvBuf);
+		}
+	}
 }
 
 int Client::Send(std::string message)

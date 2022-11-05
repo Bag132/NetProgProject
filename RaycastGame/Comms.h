@@ -73,12 +73,14 @@ private:
 class Client
 {
 public:
+	Client();
 	void SetIP(std::string ip);
 	int Connect(std::string ip);
 	int Send(std::string message);
 	int Join();
 
 private:
+	void recieveWorker(SOCKET*);
 	SOCKET serverSocket = 0;
 	std::string ip;
 };
