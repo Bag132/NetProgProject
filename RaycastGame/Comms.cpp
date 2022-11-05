@@ -87,14 +87,13 @@ int Server::Serve()
 		SOCKADDR_IN* clientSockInfo = new SOCKADDR_IN(sockInfo);
 		char ipbuf[15];
 		const char* ip = inet_ntop(AF_INET, &clientSockInfo->sin_addr, ipbuf, 15);
-		printf("Server: Connection recieved from %s\n", ipbuf);
+		printf("Server: Connection recieved from '%s'\n", ipbuf);
 		opponentJoined = true;
-
 
 		// Send functionality here
 		// Start recieve thread
 
-		SOCKET* udpSocket = new SOCKET(socket(AF_INET, SOCK_DGRAM, 0)); // Setup UDP
+		SOCKET udpSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP); // Setup UDP
 		struct sockaddr_in server;
 		server.sin_family = AF_INET;
 		server.sin_addr.s_addr = INADDR_ANY;
@@ -104,11 +103,11 @@ int Server::Serve()
 		int opponentLen = sizeof(opponent);
 		opponent.sin_family = AF_INET;
 		opponent.sin_port = htons(DEFAULT_PORT_UDP);
-		inet_pton(AF_INET, "127.0.0.1", &opponent.sin_addr.s_addr);
+		inet_pton(AF_INET, ipbuf, &opponent.sin_addr.s_addr);
 
-		bind(*udpSocket, (struct sockaddr*)&server, sizeof(server));
+		bind(udpSocket, (struct sockaddr*)&server, sizeof(server));
 
-		this->recieveThread = std::thread(&Server::recieveWorker, this, clientSocket, udpSocket);
+		this->recieveThread = std::thread(&Server::recieveWorker, this, clientSocket, &udpSocket);
 
 		printf("Server: Waiting for start...\n");
 
@@ -127,14 +126,18 @@ int Server::Serve()
 		else
 		{
 			printf("Server: Sent start game command\n");
-			while (!gameStarted);
-			gameStarted = true;
+
+			
+
+//			while (!gameStarted);
+//			gameStarted = true;
 			// Start UDP sends
-			const char* testMessage = "Test udp send";
+			const char* testMessage = "From Server";
+			printf("Server: Send loop started\n");
 			while (true) // Check something idk 
 			{
 				// Send this player data
-				if (sendto(*udpSocket, testMessage, 14, 0, (struct sockaddr*)&opponent, sizeof(opponent)) == SOCKET_ERROR)
+				if (sendto(udpSocket, testMessage, 12, 0, (struct sockaddr*)&opponent, sizeof(opponent)) == SOCKET_ERROR)
 				{
 					printf("Server: sendto() failed with error code: %d\n", WSAGetLastError());
 				}
@@ -182,7 +185,8 @@ void Server::recieveWorker(SOCKET* clientSocket, SOCKET* udpSocket)
 				{
 					startRecieved = true;
 					this->gameStarted = true;
-					printf("Server: Recieved START_RECIEVED\n");
+					waitForStart.unlock();
+					printf("Server: Client is ready to play\n");
 					continue;
 				}
 			}

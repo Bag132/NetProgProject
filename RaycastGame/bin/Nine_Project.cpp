@@ -94,15 +94,14 @@ int main() {
 
 	while (!server.IsListening());
 
-	printf("Creating client\n");
-	std::string ip = "127.0.0.1";
-
-	Client client;
+//	printf("Creating client\n");
+//	std::string ip = "127.0.0.1";
+//	Client client;
 //	client.SetIP(ip);
-	std::thread clientThread(&Client::Connect, &client, ip);
+//	std::thread clientThread(&Client::Connect, &client, ip);
 
 	std::string e;
-	puts("Bruh\n");
+	puts("Press enter to start game...\n");
 	
 	std::getline(std::cin, e);
 	server.startGame(false);
