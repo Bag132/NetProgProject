@@ -89,25 +89,6 @@ void mouse(GLFWwindow* window, double x, double y) {
 }
 
 int main() {
-	Server server;
-	std::thread acceptThread(&Server::Serve, &server);
-
-	while (!server.IsListening());
-
-	printf("Creating client\n");
-	std::string ip = "127.0.0.1";
-	Client client;
-	std::thread clientThread(&Client::Connect, &client, ip);
-
-	std::string e;
-	puts("Press enter to start game...\n");
-	
-	std::getline(std::cin, e);
-	server.startGame(false);
-	acceptThread.join();
-	std::cout.flush();
-	exit(0);
-	
 	window = initWindow();
 	gamestate = GameState(Vector2(2, 2));
 	//glfwSetKeyCallback(window, input);
