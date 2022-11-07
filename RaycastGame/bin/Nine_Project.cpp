@@ -94,11 +94,10 @@ int main() {
 
 	while (!server.IsListening());
 
-//	printf("Creating client\n");
-//	std::string ip = "127.0.0.1";
-//	Client client;
-//	client.SetIP(ip);
-//	std::thread clientThread(&Client::Connect, &client, ip);
+	printf("Creating client\n");
+	std::string ip = "127.0.0.1";
+	Client client;
+	std::thread clientThread(&Client::Connect, &client, ip);
 
 	std::string e;
 	puts("Press enter to start game...\n");
@@ -108,7 +107,7 @@ int main() {
 	acceptThread.join();
 	std::cout.flush();
 	exit(0);
-
+	
 	window = initWindow();
 	gamestate = GameState(Vector2(2, 2));
 	//glfwSetKeyCallback(window, input);

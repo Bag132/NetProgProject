@@ -69,6 +69,7 @@ int Server::Serve()
 	{
 		puts("Server: Binded to port\n");
 	}
+
 	this->listening = true;
 	listen(serverSocket, 2); // blocking call
 	this->serving = true;
@@ -90,30 +91,41 @@ int Server::Serve()
 		printf("Server: Connection recieved from '%s'\n", ipbuf);
 		opponentJoined = true;
 
-		// Send functionality here
-		// Start recieve thread
+		// LOCAL_DEBUG UDP: Client sends to 780, Server Recieves at 780
+		// Server sends to 770, Client recieves at 770
+
+		struct sockaddr_in udpServerInfo;
+		udpServerInfo.sin_family = AF_INET;
+		udpServerInfo.sin_addr.s_addr = INADDR_ANY;
+		if (LOCAL_DEBUG)
+		{
+			udpServerInfo.sin_port = htons(780);
+		}
+		else
+		{
+			udpServerInfo.sin_port = htons(DEFAULT_PORT_UDP);
+		}
+
+		struct sockaddr_in opponentUdpInfo;
+		int opponentLen = sizeof(opponentUdpInfo);
+		opponentUdpInfo.sin_family = AF_INET;
+		if (LOCAL_DEBUG)
+		{
+			opponentUdpInfo.sin_port = htons(770);
+		}
+		else 
+		{
+			opponentUdpInfo.sin_port = htons(DEFAULT_PORT_UDP);
+		}
+		inet_pton(AF_INET, ipbuf, &opponentUdpInfo.sin_addr.s_addr);
 
 		SOCKET udpSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP); // Setup UDP
-		struct sockaddr_in server;
-		server.sin_family = AF_INET;
-		server.sin_addr.s_addr = INADDR_ANY;
-		server.sin_port = htons(DEFAULT_PORT_UDP);
-
-		struct sockaddr_in opponent;
-		int opponentLen = sizeof(opponent);
-		opponent.sin_family = AF_INET;
-		opponent.sin_port = htons(DEFAULT_PORT_UDP);
-		inet_pton(AF_INET, ipbuf, &opponent.sin_addr.s_addr);
-
-		bind(udpSocket, (struct sockaddr*)&server, sizeof(server));
+		bind(udpSocket, (struct sockaddr*)&udpServerInfo, sizeof(udpServerInfo));
 
 		this->recieveThread = std::thread(&Server::recieveWorker, this, clientSocket, &udpSocket);
 
 		printf("Server: Waiting for start...\n");
-
-		//        while (!start); // Wait for user to start game
 		waitForStart.lock();
-
 		printf("Server: Game starting\n");
 
 		if (send(*clientSocket, START_GAME_COMMAND, START_GAME_COMMAND_SIZE, 0) == SOCKET_ERROR)
@@ -137,7 +149,7 @@ int Server::Serve()
 			while (true) // Check something idk 
 			{
 				// Send this player data
-				if (sendto(udpSocket, testMessage, 12, 0, (struct sockaddr*)&opponent, sizeof(opponent)) == SOCKET_ERROR)
+				if (sendto(udpSocket, testMessage, 12, 0, (struct sockaddr*)&opponentUdpInfo, sizeof(opponentUdpInfo)) == SOCKET_ERROR)
 				{
 					printf("Server: sendto() failed with error code: %d\n", WSAGetLastError());
 				}
@@ -175,6 +187,7 @@ void Server::recieveWorker(SOCKET* clientSocket, SOCKET* udpSocket)
 	int result = 1;
 	printf("Server: Recieving messages\n");
 	bool startRecieved = false;
+
 	do {
 		if (!startRecieved) { // TCP Game state stuff
 			result = recv(*clientSocket, recvbuf, 50, 0); // Recieve commands from
@@ -272,27 +285,42 @@ int Client::Connect(std::string ip)
 	struct sockaddr_in server;
 	server.sin_family = AF_INET;
 	server.sin_port = htons(DEFAULT_PORT);
-	int ret = inet_pton(AF_INET, ip.c_str(), (void*)&server.sin_addr.s_addr);
-	if (ret < 0) {
-		printf("Client: Bad return code %d", ret);
-		return -1;
-	}
+	inet_pton(AF_INET, ip.c_str(), (void*)&server.sin_addr.s_addr);
 
 	if (connect(serverSock, (struct sockaddr*)&server, sizeof(server)) < 0) {
 		printf("Client: Connect failed\n");
 		return -2;
 	}
 
-	// Stuff to correspond with server
+	// LOCAL_DEBUG UDP: Client sends to 780, Server Recieves at 780
+	// Server sends to 770, Client recieves at 770
+
 	SOCKET udpSocket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 	struct sockaddr_in udpServerInfo;
 	udpServerInfo.sin_family = AF_INET;
 	udpServerInfo.sin_addr.s_addr = INADDR_ANY;
-	udpServerInfo.sin_port = htons(DEFAULT_PORT_UDP);
-	bind(udpSocket, (struct sockaddr*) &udpServerInfo, sizeof(udpServerInfo));
+	if (LOCAL_DEBUG)
+	{
+		udpServerInfo.sin_port = htons(770);
+	}
+	else
+	{
+		udpServerInfo.sin_port = htons(DEFAULT_PORT_UDP);
+	}
 
 	struct sockaddr_in opponentInfo;
 	int opponentInfoLen = sizeof(opponentInfo);
+	opponentInfo.sin_family = AF_INET;
+	if (LOCAL_DEBUG)
+	{
+		opponentInfo.sin_port = htons(780);
+	} 
+	else {
+		opponentInfo.sin_port = htons(DEFAULT_PORT_UDP);
+	}
+	inet_pton(AF_INET, ip.c_str(), &opponentInfo.sin_addr.s_addr);
+
+	bind(udpSocket, (struct sockaddr*) &udpServerInfo, sizeof(udpServerInfo));
 
 	char recvbuf[50];
 	int recvResult;
@@ -307,10 +335,6 @@ int Client::Connect(std::string ip)
 			if (strcmp(recvbuf, START_GAME_COMMAND) == 0) // If start game is recieved then send start game recieved (not sure why I'm doing this)
 			{
 				gameStarted = true;
-
-				opponentInfo.sin_family = AF_INET;
-				opponentInfo.sin_port = htons(DEFAULT_PORT_UDP);
-				inet_pton(AF_INET, ip.c_str(), &opponentInfo.sin_addr.s_addr);
 
 				printf("Client: Start command recieved\n");
 				if (send(serverSock, START_RECIEVED, START_RECIEVED_SIZE, 0) == SOCKET_ERROR)

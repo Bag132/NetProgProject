@@ -7,6 +7,8 @@
 #include <mutex>
 #include <thread>
 
+#define LOCAL_DEBUG TRUE
+
 #define DEFAULT_PORT 777
 #define DEFAULT_PORT_UDP 778
 #define DEFAULT_RECV_LEN 512
