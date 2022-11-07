@@ -4,41 +4,85 @@
 #include <cstdio>
 #include <cstdlib>
 #include <iostream>
+#include <mutex>
+#include <thread>
+
+#define LOCAL_DEBUG TRUE
 
 #define DEFAULT_PORT 777
+#define DEFAULT_PORT_UDP 778
+#define DEFAULT_RECV_LEN 512
+#define LEAVE_COMMAND "LEAVE"
+#define LEAVE_COMMAND_SIZE 5
+#define START_GAME_COMMAND "STARTGAME"
+#define START_GAME_COMMAND_SIZE 10
+
+#define JOIN_COMMAND "JOIN"
+#define JOIN_COMMAND_SIZE 4
+#define START_RECIEVED "STARTRECVD"
+#define START_RECIEVED_SIZE 11
+
+class WSA
+{
+public:
+	WSA(const WSA&) = delete;
+	void operator=(const WSA&) = delete;
+
+	static WSA& GetInstance()
+	{
+		static WSA instance;
+		return instance;
+	}
+	WSAData* GetWSAData();
+	
+private:
+	WSA();
+	WSAData wsaData;
+	
+};
 
 class Server
 {
 public:
-	static Server& getInstance()
-	{
-		static Server instance;
-		return instance;
-	}
+	Server();
+	~Server();
 
-	int acceptClient();
-	int acceptClient(u_short port);
+	int Serve();
+	int startGame(bool alone);
+	bool IsListening();
+	bool IsServing();
+	bool serving = false;
+	void Stop();
 	
 private:
-	Server();
+	void recieveWorker(SOCKET*, SOCKET*);
+
+	std::mutex waitForStart;
 	u_short port;
-	WSAData wsa;
 	SOCKET serverSocket;
 	struct sockaddr_in server;
+	std::thread recieveThread, sendThread;
+	bool listening = false,
+		opponentJoined = false,
+		inLobby = false,
+		stopped = true,
+		start = false,
+		gameStarted = false;
 
-	static std::string format(std::string s1, std::string s2)
-	{
-		char* w = new char[s1.size() + 1];
-		std::copy(s1.begin(), s1.end(), w);
-		sprintf(w, s2.c_str());
-		std::string result = w;
-		delete[] w;
-		return result;
-	}
 };
 
 
 class Client
 {
+public:
+	Client();
+	int Connect(std::string ip);
+	int Send(std::string message);
+	int Join();
 
+private:
+	void recieveWorker(SOCKET*);
+	SOCKET serverSocket = 0;
+	std::string ip;
 };
+

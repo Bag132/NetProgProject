@@ -2,6 +2,12 @@
 //
 
 #include "Nine_Project.h"
+#include "Comms.h"
+#include <thread>
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
+#include <string>
 
 GLFWwindow* window;
 GameState gamestate;
