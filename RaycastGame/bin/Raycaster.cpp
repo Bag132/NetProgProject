@@ -8,7 +8,12 @@ Raycaster::Raycaster(GameState* _state, int sizx, int sizy, int res, bool rgba) 
 void Raycaster::drawRaycaster(Vector2 pos) {
 	pbuff.clear();
 	Vector2 plane = state->pd.rotDeg(-90) * (fov / 90);
-	//for (int x = 0; x < pbuff.x; x++) {
+
+
+	
+
+
+
 	for (int x = 0; x < pbuff.x; x++) {
 		bool north;
 		Vector2 step;
