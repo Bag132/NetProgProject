@@ -39,6 +39,9 @@
     <ClCompile Include="bin\Topdown.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="bin\Assets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bin\DrawShapes.h">
@@ -60,6 +63,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="bin\Nine_Project.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bin\Assets.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

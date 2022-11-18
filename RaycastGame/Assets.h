@@ -3,11 +3,9 @@
 #include <cstdint>
 #include <string>
 
-class Assets
-{
+class Assets {
 public:
-	// texture array
-	const std::string assetPath = "/assets";
-	uint32_t textures[256];
-	int texturePositions[1];
+	static uint32_t* textures;
+
+	static int* texturePositions;
 };

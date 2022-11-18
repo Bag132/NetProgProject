@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="bin\Assets.cpp" />
     <ClCompile Include="bin\DrawShapes.cpp" />
     <ClCompile Include="bin\GameState.cpp" />
     <ClCompile Include="bin\Nine_Project.cpp" />
@@ -162,6 +163,7 @@
     <ClCompile Include="opengl\glad.c" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bin\Assets.h" />
     <ClInclude Include="bin\DrawShapes.h" />
     <ClInclude Include="bin\GameState.h" />
     <ClInclude Include="bin\Nine_Project.h" />

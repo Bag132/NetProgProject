@@ -1,1 +1,13 @@
-﻿  RaycastGame.vcxproj -> C:\Users\Victor\source\repos\NetProgProject\x64\Release\RaycastGame.exe
+﻿  Raycaster.cpp
+C:\COMP2100\NetProgProject\RaycastGame\bin\Raycaster.cpp(37,47): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\COMP2100\NetProgProject\RaycastGame\bin\Raycaster.cpp(42,17): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\COMP2100\NetProgProject\RaycastGame\bin\Raycaster.cpp(83,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\COMP2100\NetProgProject\RaycastGame\bin\Raycaster.cpp(83,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\COMP2100\NetProgProject\RaycastGame\bin\Raycaster.cpp(102,46): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\COMP2100\NetProgProject\RaycastGame\bin\Raycaster.cpp(102,40): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\COMP2100\NetProgProject\RaycastGame\bin\Raycaster.cpp(131,7): warning C4101: 'texY': unreferenced local variable
+  Generating code
+  Previous IPDB and IOBJ mismatch, fall back to full compilation.
+  All 215 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+  RaycastGame.vcxproj -> C:\COMP2100\NetProgProject\x64\Release\RaycastGame.exe

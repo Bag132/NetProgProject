@@ -6,11 +6,11 @@
 GLFWwindow* window;
 GameState gamestate;
 
-const int RES_X = 800;
-const int RES_Y = 300;
+const int RES_X = 3200;
+const int RES_Y = 1200;
 const int SIZE_X = 40;
 const int SIZE_Y = 30;
-const int SCALE = 10;
+const int SCALE = 40;
 
 int t0 = 0, t1;
 double dt;
