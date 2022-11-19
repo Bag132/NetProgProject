@@ -12,6 +12,7 @@
 #include "Comms.h"
 #include <thread>
 #include <cstdio>
+#include <string>
 
 #define WINDOW_TITLE "Raycaster"
 #define WINDOW_WIDTH 1280
@@ -169,7 +170,7 @@ struct billboard billboards[NUM_BILLBOARDS] = // x, y, spriteIdx, spriteScaleX, 
  {9.50f, 15.5f, 0, 1.0f, 1.0f, 0.0f},
  {10.0f, 15.1f, 0, 1.0f, 1.0f, 0.0f},
  {10.5f, 15.8f, 0, 1.0f, 1.0f, 0.0f},
- {19.5f, 11.5f, 0, 1.0f, 1.0f, 0.0f}}; // player billboard
+ {19.75f, 11.75f, 0, 1.0f, 1.0f, 0.0f}}; // opponent billboard
 
 unsigned int get_pixel(SDL_Surface* surface, int x, int y)
 {
@@ -922,22 +923,24 @@ void draw_text(SDL_Renderer* renderer, TTF_Font* font, int px, int x, int y, SDL
 
 int main(int argc, char* argv[])
 {
-    //PlayerState ss = { 1., 2., 3. }, cs = { 4., 5., 6. };
+    float startX = 22.0f, startY = 11.5f;
 
-    //Server server;
-    //server.SetPlayerState(ss);
-    //std::thread serverThread(&Server::Serve, &server);
-    //Client client;
-    //client.SetPlayerState(cs);
-    //while (!server.IsListening());
-    //std::thread clientThread(&Client::Connect, &client, std::string("127.0.0.1"));
+    PlayerState serverState = { startX, startY, 0.f }, clientState = { billboards[19].x, billboards[19].y, 6.};
+    
 
-    //puts("Press enter to start game...\n");
-    //std::string e;
-    //std::getline(std::cin, e);
-    //server.startGame(false);
-    //serverThread.join();
-    //exit(0);
+    Server server;
+    server.SetPlayerState(serverState);
+    std::thread serverThread(&Server::Serve, &server);
+    Client client;
+    client.SetPlayerState(clientState);
+    while (!server.IsListening());
+    std::thread clientThread(&Client::Connect, &client, std::string("127.0.0.1"));
+
+    puts("Press enter to start game...\n");
+    std::string e;
+    std::getline(std::cin, e);
+    server.startGame(false);
+
 
     SDL_Init(SDL_INIT_VIDEO);
     IMG_Init(IMG_INIT_PNG);
@@ -983,8 +986,8 @@ int main(int argc, char* argv[])
 
     struct camera* camera = (struct camera*) malloc(sizeof(struct camera));
 
-    camera->pos_x = 22.0f;
-    camera->pos_y = 11.5f;
+    camera->pos_x = startX; // Start x
+    camera->pos_y = startY; // Start y
     camera->dir_x = -1.0f;
     camera->dir_y = 0.0f;
     camera->plane_x = 0.0f;
@@ -1007,6 +1010,10 @@ int main(int argc, char* argv[])
     bool quit = false;
     while (!quit)
     {
+        PlayerState opponentState = server.GetOpponentState();
+        billboards[19].x = opponentState.xPos;
+        billboards[19].y = opponentState.yPos;
+
         static unsigned int current_time = 0;
         unsigned int frame_start = SDL_GetTicks();
         unsigned int previous_time = current_time;

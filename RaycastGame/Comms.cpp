@@ -203,7 +203,7 @@ void Server::recieveWorker(SOCKET* clientSocket, SOCKET* udpSocket)
 				{
 					startRecieved = true;
 					this->gameStarted = true;
-					waitForStart.unlock();
+//					waitForStart.unlock();
 					printf("Server: Client is ready to play\n");
 					continue;
 				}
