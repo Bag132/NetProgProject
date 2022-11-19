@@ -88,7 +88,7 @@ void mouse(GLFWwindow* window, double x, double y) {
 	gamestate.mouse(x, y);
 }
 
-int main() {
+int maine() {
 	window = initWindow();
 	gamestate = GameState(Vector2(2, 2));
 	//glfwSetKeyCallback(window, input);

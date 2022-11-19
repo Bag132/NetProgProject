@@ -1,4 +1,6 @@
 #define MAKEWORD(a,b) ((WORD)(((BYTE)(((DWORD_PTR)(a)) & 0xff)) | ((WORD)((BYTE)(((DWORD_PTR)(b)) & 0xff))) << 8))
+#define UDP_BUFFER_SIZE 100
+
 #include "Comms.h"
 #include <cstdio>
 #include <cstdlib>
@@ -145,17 +147,20 @@ int Server::Serve()
 //			gameStarted = true;
 			// Start UDP sends
 			const char* testMessage = "From Server";
+
 			printf("Server: Send loop started\n");
 			while (true) // Check something idk 
 			{
+				std::string stateStr =
+					std::to_string(this->currentState.xPos) + " " + std::to_string(this->currentState.yPos) + " " + std::to_string(this->currentState.orientation);
 				// Send this player data
-				if (sendto(udpSocket, testMessage, 12, 0, (struct sockaddr*)&opponentUdpInfo, sizeof(opponentUdpInfo)) == SOCKET_ERROR)
+				if (sendto(udpSocket, stateStr.c_str(), stateStr.size(), 0, (struct sockaddr*)&opponentUdpInfo, sizeof(opponentUdpInfo)) == SOCKET_ERROR)
 				{
 					printf("Server: sendto() failed with error code: %d\n", WSAGetLastError());
 				}
 				else
 				{
-					printf("Server: Sent UDP message '%s'\n", testMessage);
+					printf("Server: Sent UDP message '%s'\n", stateStr.c_str());
 				}
 
 				std::this_thread::sleep_for(std::chrono::milliseconds(30));
@@ -181,7 +186,7 @@ int Server::Serve()
 void Server::recieveWorker(SOCKET* clientSocket, SOCKET* udpSocket)
 {
 	char recvbuf[DEFAULT_RECV_LEN];
-	char udpRecvBuf[50];
+	char udpRecvBuf[UDP_BUFFER_SIZE];
 	struct sockaddr_in otherHost;
 	int otherHostLen = sizeof(otherHost);
 	int result = 1;
@@ -190,7 +195,7 @@ void Server::recieveWorker(SOCKET* clientSocket, SOCKET* udpSocket)
 
 	do {
 		if (!startRecieved) { // TCP Game state stuff
-			result = recv(*clientSocket, recvbuf, 50, 0); // Recieve commands from
+			result = recv(*clientSocket, recvbuf, DEFAULT_RECV_LEN, 0); // Recieve commands from
 			if (result > 0)
 			{
 				printf("Server: Recieved '%s'\n", recvbuf);
@@ -217,14 +222,31 @@ void Server::recieveWorker(SOCKET* clientSocket, SOCKET* udpSocket)
 		else // UDP in-game stuff
 		{
 			// Recieve and update opponent data
-			memset(udpRecvBuf, '\0', 50);
-			if (recvfrom(*udpSocket, udpRecvBuf, 50, 0, (struct sockaddr*)&otherHost, &otherHostLen) == SOCKET_ERROR)
+			memset(udpRecvBuf, '\0', UDP_BUFFER_SIZE);
+			if (recvfrom(*udpSocket, udpRecvBuf, UDP_BUFFER_SIZE, 0, (struct sockaddr*)&otherHost, &otherHostLen) == SOCKET_ERROR)
 			{
 				printf("Server: recvfrom() failed with error code : %d\n", WSAGetLastError());
 			}
 			else
 			{
-				printf("Server: UDP recieved: '%s'\n", udpRecvBuf);
+//				printf("Server: UDP recieved: '%s'\n", udpRecvBuf);
+				std::string recvStr(udpRecvBuf);
+
+				int xPosEnd = recvStr.find(" ", 0);
+				std::string xStr = recvStr.substr(0, xPosEnd);
+
+				int yPosEnd = recvStr.find(" ", xPosEnd);
+				std::string yStr = recvStr.substr(xPosEnd, yPosEnd);
+
+				std::string orStr = recvStr.substr(yPosEnd + yStr.size() + 1, recvStr.size());
+
+				float x = std::stof(xStr), y = std::stof(yStr), orientation = std::stof(orStr);
+
+				printf("Server: Opp X: %f, Opp Y: %f, Opp ori: %f\n", x, y, orientation);
+				
+				this->opponentState.xPos = x;
+				this->opponentState.yPos = y;
+				this->opponentState.orientation = orientation;
 			}
 		}
 	} while (result > 0);
@@ -260,6 +282,24 @@ void Server::Stop()
 Server::~Server()
 {
 }
+
+void Server::SetPlayerState(PlayerState ps)
+{
+	this->currentState = ps;
+}
+
+void Server::SetPlayerState(float x, float y, float orientation)
+{
+	this->currentState.xPos = x;
+	this->currentState.yPos = y;
+	this->currentState.orientation = orientation;
+}
+
+PlayerState Server::GetOpponentState()
+{
+	return this->opponentState;
+}
+
 
 // ------------------- Client -------------------
 
@@ -366,15 +406,19 @@ int Client::Connect(std::string ip)
 	const char* testMessage = "From client";
 	printf("Client: UDP send loop started\n");
 	std::thread recieveThread(&Client::recieveWorker, this, &udpSocket);
+
+	std::string stateStr =
+		std::to_string(this->currentState.xPos) + " " + std::to_string(this->currentState.yPos) + " " + std::to_string(this->currentState.orientation);
+
 	while (gameStarted)
 	{
-		if (sendto(udpSocket, testMessage, 12, 0, (struct sockaddr*) &opponentInfo, opponentInfoLen) == SOCKET_ERROR)
+		if (sendto(udpSocket, stateStr.c_str(), stateStr.size(), 0, (struct sockaddr*)&opponentInfo, opponentInfoLen) == SOCKET_ERROR)
 		{
 			printf("Client: sendto() failed with error %d\n", WSAGetLastError());
 		}
 		else
 		{
-			printf("Client: Sent '%s'\n", testMessage);
+			printf("Client: Sent '%s'\n", stateStr.c_str());
 			std::this_thread::sleep_for(std::chrono::milliseconds(50));
 		}
 	}
@@ -400,7 +444,24 @@ void Client::recieveWorker(SOCKET* udpSocket)
 		}
 		else
 		{
-			printf("Client: UDP recieved: '%s'\n", recvBuf);
+//			printf("Client: UDP recieved: '%s'\n", recvBuf);
+			std::string recvStr(recvBuf);
+
+			int xPosEnd = recvStr.find(" ", 0);
+			std::string xStr = recvStr.substr(0, xPosEnd);
+
+			int yPosEnd = recvStr.find(" ", xPosEnd);
+			std::string yStr = recvStr.substr(xPosEnd, yPosEnd);
+
+			std::string orStr = recvStr.substr(yPosEnd + yStr.size() + 1, recvStr.size());
+
+			float x = std::stof(xStr), y = std::stof(yStr), orientation = std::stof(orStr);
+
+			printf("Client: Opp X: %f, Opp Y: %f, Opp ori: %f\n", x, y, orientation);
+
+			this->opponentState.xPos = x;
+			this->opponentState.yPos = y;
+			this->opponentState.orientation = orientation;
 		}
 	}
 }
@@ -439,4 +500,21 @@ int Client::Join()
 	}
 
 	return 0;
+}
+
+void Client::SetPlayerState(PlayerState ps)
+{
+	this->currentState = ps;
+}
+
+void Client::SetPlayerState(float x, float y, float orientation)
+{
+	this->currentState.xPos = x;
+	this->currentState.yPos = y;
+	this->currentState.orientation = orientation;
+}
+
+PlayerState Client::GetOpponentState()
+{
+	return this->opponentState;
 }

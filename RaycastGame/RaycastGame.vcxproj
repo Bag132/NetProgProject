@@ -72,23 +72,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)opengl;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)opengl;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)SDL2_ttf-2.20.1\include;$(ProjectDir)SDL2_image-2.6.2\include;$(ProjectDir)opengl;$(ProjectDir)SDL2-2.24.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)SDL2_ttf-2.20.1\lib\x64;$(ProjectDir)SDL2_image-2.6.2\lib\x64;$(ProjectDir)SDL2-2.24.2\lib\x64;$(ProjectDir)opengl;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)opengl;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)opengl;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)SDL2_ttf-2.20.1\include;$(ProjectDir)SDL2_image-2.6.2\include;$(ProjectDir)opengl;$(ProjectDir)SDL2-2.24.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)SDL2_ttf-2.20.1\lib\x64;$(ProjectDir)SDL2_image-2.6.2\lib\x64;$(ProjectDir)SDL2-2.24.2\lib\x64;$(ProjectDir)opengl;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir)opengl;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)opengl;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)SDL2_ttf-2.20.1\include;$(ProjectDir)SDL2_image-2.6.2\include;$(ProjectDir)opengl;$(ProjectDir)SDL2-2.24.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)SDL2_ttf-2.20.1\lib\x64;$(ProjectDir)SDL2_image-2.6.2\lib\x64;$(ProjectDir)SDL2-2.24.2\lib\x64;$(ProjectDir)opengl;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir)opengl;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)opengl;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(ProjectDir)SDL2_ttf-2.20.1\include;$(ProjectDir)SDL2_image-2.6.2\include;$(ProjectDir)opengl;$(ProjectDir)SDL2-2.24.2\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)SDL2_ttf-2.20.1\lib\x64;$(ProjectDir)SDL2_image-2.6.2\lib\x64;$(ProjectDir)SDL2-2.24.2\lib\x64;$(ProjectDir)opengl;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -101,7 +101,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -119,7 +119,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -133,7 +133,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -152,7 +152,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -164,8 +164,8 @@
     <ClCompile Include="bin\Topdown.cpp" />
     <ClCompile Include="bin\Vector2.cpp" />
     <ClCompile Include="Comms.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="opengl\glad.c" />
-    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bin\DrawShapes.h" />

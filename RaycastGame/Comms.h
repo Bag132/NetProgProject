@@ -22,6 +22,11 @@
 #define START_RECIEVED "STARTRECVD"
 #define START_RECIEVED_SIZE 11
 
+struct PlayerState
+{
+	float xPos = 0, yPos = 0, orientation = 0;
+};
+
 class WSA
 {
 public:
@@ -53,10 +58,14 @@ public:
 	bool IsServing();
 	bool serving = false;
 	void Stop();
+	void SetPlayerState(PlayerState ps);
+	void SetPlayerState(float x, float y, float orientation);
+	PlayerState GetOpponentState();
 	
 private:
 	void recieveWorker(SOCKET*, SOCKET*);
 
+	PlayerState currentState, opponentState;
 	std::mutex waitForStart;
 	u_short port;
 	SOCKET serverSocket;
@@ -79,10 +88,14 @@ public:
 	int Connect(std::string ip);
 	int Send(std::string message);
 	int Join();
+	void SetPlayerState(PlayerState ps);
+	void SetPlayerState(float x, float y, float orientation);
+	PlayerState GetOpponentState();
 
 private:
 	void recieveWorker(SOCKET*);
+
 	SOCKET serverSocket = 0;
 	std::string ip;
+	PlayerState currentState, opponentState;
 };
-
