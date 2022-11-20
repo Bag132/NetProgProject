@@ -43,6 +43,8 @@
 
 #define PI 3.14159f
 
+#define SERVER true
+
 struct bitmap
 {
     int width;
@@ -927,20 +929,37 @@ int main(int argc, char* argv[])
 
     PlayerState serverState = { startX, startY, 0.f }, clientState = { billboards[19].x, billboards[19].y, 6.};
     
-
     Server server;
-    server.SetPlayerState(serverState);
-    std::thread serverThread(&Server::Serve, &server);
     Client client;
-    client.SetPlayerState(clientState);
-    while (!server.IsListening());
-    std::thread clientThread(&Client::Connect, &client, std::string("127.0.0.1"));
 
-    puts("Press enter to start game...\n");
-    std::string e;
-    std::getline(std::cin, e);
-    server.startGame(false);
+    if (SERVER) {
+        server.SetPlayerState(serverState);
+        std::thread serverThread(&Server::Serve, &server);
 
+        printf("ClientJoined() = %d\n", server.ClientJoined());
+        puts("Waiting for client to join....\n");
+        while (!server.ClientJoined())
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+
+        puts("Press enter to start game...\n");
+        std::string e;
+        std::getline(std::cin, e);
+
+        server.startGame(false);
+    }
+    else {
+        Client client;
+        client.SetPlayerState(clientState);
+        std::thread clientThread(&Client::Connect, &client, std::string("127.0.0.1"));
+        puts("Joining game...\n");
+        while (!client.JoinedServer())
+        {
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        }
+    }
+    
 
     SDL_Init(SDL_INIT_VIDEO);
     IMG_Init(IMG_INIT_PNG);
@@ -1010,7 +1029,16 @@ int main(int argc, char* argv[])
     bool quit = false;
     while (!quit)
     {
-        PlayerState opponentState = server.GetOpponentState();
+        PlayerState opponentState;
+
+        if (SERVER) 
+        {
+            opponentState = server.GetOpponentState();
+        }
+        else 
+        {
+            opponentState = client.GetOpponentState();
+        }
         billboards[19].x = opponentState.xPos;
         billboards[19].y = opponentState.yPos;
 
@@ -1164,6 +1192,17 @@ int main(int argc, char* argv[])
         if (keys[SDL_SCANCODE_E])
         {
             camera_rotate(camera, -angle);
+        }
+
+        PlayerState playerState = { camera->pos_x, camera->pos_y, 0 };
+
+        if (SERVER)
+        {
+            server.SetPlayerState(playerState);
+        }
+        else
+        {
+            client.SetPlayerState(playerState);
         }
 
         render(

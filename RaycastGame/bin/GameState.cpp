@@ -6,7 +6,7 @@ GameState::GameState(Vector2 _pp) {
 	pm = Vector2(0, 0);
 	lastmpos = Vector2(0, 0);
 
-	std::cout << "Changed PD!";
+//	std::cout << "Changed PD!";
 
 	pmspeed = 5;
 	prspeed = 0.05;

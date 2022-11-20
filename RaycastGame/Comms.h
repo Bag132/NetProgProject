@@ -56,6 +56,7 @@ public:
 	int startGame(bool alone);
 	bool IsListening();
 	bool IsServing();
+	bool ClientJoined();
 	bool serving = false;
 	void Stop();
 	void SetPlayerState(PlayerState ps);
@@ -91,6 +92,7 @@ public:
 	void SetPlayerState(PlayerState ps);
 	void SetPlayerState(float x, float y, float orientation);
 	PlayerState GetOpponentState();
+	bool JoinedServer();
 
 private:
 	void recieveWorker(SOCKET*);
@@ -98,4 +100,5 @@ private:
 	SOCKET serverSocket = 0;
 	std::string ip;
 	PlayerState currentState, opponentState;
+	bool joinedServer = false;
 };

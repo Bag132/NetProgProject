@@ -92,9 +92,10 @@ int Server::Serve()
 		const char* ip = inet_ntop(AF_INET, &clientSockInfo->sin_addr, ipbuf, 15);
 		printf("Server: Connection recieved from '%s'\n", ipbuf);
 		opponentJoined = true;
+		
 
 		// LOCAL_DEBUG UDP: Client sends to 780, Server Recieves at 780
-		// Server sends to 770, Client recieves at 770
+		//					Server sends to 770, Client recieves at 770
 
 		struct sockaddr_in udpServerInfo;
 		udpServerInfo.sin_family = AF_INET;
@@ -143,8 +144,6 @@ int Server::Serve()
 
 			
 
-//			while (!gameStarted);
-//			gameStarted = true;
 			// Start UDP sends
 			const char* testMessage = "From Server";
 
@@ -264,6 +263,11 @@ int Server::startGame(bool alone)
 	return 0;
 }
 
+bool Server::ClientJoined()
+{
+	return this->opponentJoined;
+}
+
 bool Server::IsListening()
 {
 	return this->listening;
@@ -330,6 +334,11 @@ int Client::Connect(std::string ip)
 	if (connect(serverSock, (struct sockaddr*)&server, sizeof(server)) < 0) {
 		printf("Client: Connect failed\n");
 		return -2;
+	}
+	else
+	{
+		this->joinedServer = true;
+		printf("Client: Connected to server\n");
 	}
 
 	// LOCAL_DEBUG UDP: Client sends to 780, Server Recieves at 780
@@ -500,6 +509,11 @@ int Client::Join()
 	}
 
 	return 0;
+}
+
+bool Client::JoinedServer()
+{
+	return this->joinedServer;
 }
 
 void Client::SetPlayerState(PlayerState ps)
