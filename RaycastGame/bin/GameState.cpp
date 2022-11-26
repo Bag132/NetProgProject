@@ -130,3 +130,16 @@ void GameState::setLocalPlayerPosition() {
 		pm = Vector2(0, 0);
 	}
 }
+
+void GameState::setPlayerPosition(int pid, Vector2 newpp, Vector2 newpd) {
+	pps[pid] = newpp;
+	pds[pid] = newpd;
+}
+
+void GameState::setPlayerPosition(uint32_t pip, Vector2 newpp, Vector2 newpd) {
+	for (int pid = 0; pid < pcount; pid++) {
+		if (pips[pid] == pip) {
+			setPlayerPosition(pips[pid], newpp, newpd);
+		}
+	}
+}

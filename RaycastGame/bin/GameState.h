@@ -71,4 +71,6 @@ public:
 	void startGame(); // host-only. starts the game
 	bool endGame(); // host-only. checks end condition (all players are it)
 	void setLocalPlayerPosition(); // sets pp and pd using pps and pds. sets pm to (0,0).
+	void setPlayerPosition(int pid, Vector2 newpp, Vector2 newpd);
+	void setPlayerPosition(uint32_t ip, Vector2 newpp, Vector2 newpd)
 };
