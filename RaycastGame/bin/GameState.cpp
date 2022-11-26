@@ -1,18 +1,22 @@
 #include "GameState.h"
 
-GameState::GameState(Vector2 _pp) {
-	pp = _pp;
-	pd = Vector2(0, 1).rotDeg(0.001f);
-	pm = Vector2(0, 0);
+GameState::GameState() {
 	lastmpos = Vector2(0, 0);
 
 	std::cout << "Changed PD!";
 
 	pmspeed = 5;
 	prspeed = 0.05;
-}
-GameState::GameState() {
-	GameState(Vector2(0, 0));
+
+	pcount = 0;
+	pps = new Vector2[MAX_PLAYERS];
+	pds = new Vector2[MAX_PLAYERS];
+	prs = new int[MAX_PLAYERS];
+	pips = new uint32_t[MAX_PLAYERS];
+
+	id = -1;
+
+	lastFirstIt = -1;
 }
 
 void GameState::buttons(int key, int scancode, int action, int mods) {
@@ -67,4 +71,62 @@ void GameState::mouse(double x, double y) {
 	double pr = ((lastmpos.x - x) * prspeed);
 	pd = pd.rotDeg(pr);
 	lastmpos = Vector2(x, y);
+}
+
+int GameState::addPlayer(uint32_t ip) {
+	if (pcount < MAX_PLAYERS) {
+		prs[pcount] = 0; // not in game
+		pips[pcount] = ip;
+		pcount++;
+		return pcount - 1;
+	}
+	return -1;
+}
+
+void GameState::startGame() {
+	if (id == 0) { // if host
+		for (int i = 0; i < pcount; i++) { // for every player
+			prs[i] = 1; // not it;
+			pps[i] = NOT_IT_START;
+			pds[i] = Vector2(0, 1).rotDeg(0.001f);
+		}
+
+		int it;
+		if (pcount == 1) {
+			it = 0;
+		}
+		else if (lastFirstIt > 0) {
+			it = rand() % pcount;
+		}
+		else {
+			it = rand() % (pcount - 1);
+			if (it >= lastFirstIt) {
+				it++;
+			}
+		}
+		prs[it] = 2; // it
+		pps[it] = IT_START;
+	}
+}
+
+bool GameState::endGame() { // returns true if every player is either it or not in game. also returns false if only 1 player is in the game
+	if (id == 0) { // if host
+		if (pcount == 1) {
+			return false;
+		}
+		for (int i = 0; i < pcount; i++) { //for every player
+			if (prs[i] == 1) {
+				return false;
+			}
+		}
+		return true;
+	}
+}
+
+void GameState::setLocalPlayerPosition() {
+	if (id >= 0) {
+		pp = pps[id];
+		pd = pds[id];
+		pm = Vector2(0, 0);
+	}
 }

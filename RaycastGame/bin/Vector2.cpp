@@ -28,6 +28,10 @@ float Vector2::length() {
 	return sqrt(pow(x, 2) + pow(y, 2));
 }
 
+float Vector2::lengthSquared() {
+	return pow(x, 2) + pow(y, 2);
+}
+
 bool Vector2::oob(Vector2 bound) {
 	return x > bound.x || y > bound.y || x < 0 || y < 0;
 }

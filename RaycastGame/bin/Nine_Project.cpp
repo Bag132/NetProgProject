@@ -6,11 +6,11 @@
 GLFWwindow* window;
 GameState gamestate;
 
-const int RES_X = 3200;
-const int RES_Y = 1200;
+const int RES_X = 800;
+const int RES_Y = 300;
 const int SIZE_X = 40;
 const int SIZE_Y = 30;
-const int SCALE = 40;
+const int SCALE = 10;
 
 int t0 = 0, t1;
 double dt;
@@ -84,12 +84,20 @@ void mouse(GLFWwindow* window, double x, double y) {
 
 int main() {
 	window = initWindow();
-	gamestate = GameState(Vector2(2, 2));
+	gamestate = GameState();
+	gamestate.id = gamestate.addPlayer(0);
+
+	//test code
+	gamestate.addPlayer(1);
+	//not test code
+
+	gamestate.startGame();
+	gamestate.setLocalPlayerPosition();
 	//glfwSetKeyCallback(window, input);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	//if (glfwRawMouseMotionSupported())
 	//	glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 	glfwSetCursorPosCallback(window, mouse);
-	Raycaster raycaster = Raycaster(&gamestate, SIZE_X, SIZE_Y, SCALE, true);
+	Raycaster raycaster = Raycaster(&gamestate, SIZE_X, SIZE_Y, SCALE, false);
 	return renderLoop(window, raycaster);
 }
