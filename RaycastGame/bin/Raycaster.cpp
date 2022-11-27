@@ -185,7 +185,8 @@ void Raycaster::drawRaycaster(Vector2 pos) {
 					}
 				}
 			}
-		} else {
+		}
+		else {
 			hity = Vector2(INFINITY, INFINITY);
 		}
 		if (dir.x != 0) {
@@ -204,7 +205,8 @@ void Raycaster::drawRaycaster(Vector2 pos) {
 					}
 				}
 			}
-		} else {
+		}
+		else {
 			hitx = Vector2(INFINITY, INFINITY);
 		}
 		north = hity.length() < hitx.length();
@@ -217,7 +219,8 @@ void Raycaster::drawRaycaster(Vector2 pos) {
 		float wallx;
 		if (north) {
 			wallx = state->pp.x + zbuff[x] * dir.x;
-		} else {
+		}
+		else {
 			wallx = state->pp.y + zbuff[x] * dir.y;
 		}
 
@@ -231,67 +234,68 @@ void Raycaster::drawRaycaster(Vector2 pos) {
 			}
 			return color;
 
-		}, x, drawStart < 0 ? 0 : drawStart, x + 1, drawEnd > pbuff.y ? pbuff.y : drawEnd);
+			}, x, drawStart < 0 ? 0 : drawStart, x + 1, drawEnd > pbuff.y ? pbuff.y : drawEnd);
+	}
 
-		//player sprite rendering code
-		int* spriteOrder = new int[state->pcount];
-		float* spriteDist = new float[state->pcount];
-		for (int i = 0; i < state->pcount; i++) {
-			if (i != state->id) { // dont render your own character
-				int j = i - (i > state->id ? 1 : 0);
-				spriteOrder[j] = j;
-				spriteDist[j] = (state->pps[i] - state->pp).lengthSquared(); // lengthSquared() is a bit faster than length()
-			}
+	//player sprite rendering code
+	int* spriteOrder = new int[state->pcount];
+	float* spriteDist = new float[state->pcount];
+	for (int i = 0; i < state->pcount; i++) {
+		if (i != state->id) { // dont render your own character
+			int j = i - (i > state->id ? 1 : 0);
+			spriteOrder[j] = j;
+			spriteDist[j] = (state->pps[i] - state->pp).lengthSquared(); // lengthSquared() is a bit faster than length()
 		}
-		bool swapped = false;
-		while (swapped) { // bubble sort. todo: use a more efficient sorting algorithm (but bubble sort should work fine)
-			swapped = false;
-			for (int j = 1; j < state->pcount - 1; j++) {
-				if (spriteDist[spriteOrder[j - 1]] < spriteDist[spriteOrder[j]]) { // sort from furthest to closest
-					int temp = spriteOrder[j - 1];
-					spriteOrder[j - 1] = spriteOrder[j];
-					spriteOrder[j] = temp;
-					swapped = true;
-				}
-			}
-		}
-
-		for (int j = 0; j < state->pcount - 1; j++) {
-
-			int i = spriteOrder[j] + (j >= state->id ? 1 : 0);
-			Vector2 spritePos = state->pps[i] - state->pp;
-
-			float invDet = 1.0f / (plane.x * state->pd.y - state->pd.x * plane.y);
-			Vector2 transform = Vector2(invDet * (state->pd.y * spritePos.x - state->pd.x * spritePos.y), invDet * (-plane.y * spritePos.x + plane.x * spritePos.y));
-		
-			if (transform.y > 0) {
-
-				int spriteScreenX = int((pbuff.x / 2) * (1 + transform.x / transform.y));
-
-				int spriteHeight = abs(int(pbuff.y / transform.y));
-				int drawStartY = std::max(-spriteHeight / 2 + pbuff.y / 2, 0);
-				int drawEndY = std::min(spriteHeight / 2 + pbuff.y / 2, pbuff.y - 1);
-
-				int spriteWidth = spriteHeight; //abs(int(pbuff.y / transform.y));
-				int drawStartX = std::max(-spriteWidth / 2 + spriteScreenX, 0);
-				int drawEndX = std::min(spriteWidth / 2 + spriteScreenX, pbuff.x - 1);
-
-				int textureStartIndex = texturePositions[state->prs[i] == 2 ? plrItTex : plrNotItTex]; // reduce variables accessed within lambda
-
-				int texX, texY;
-
-				// debug
-				//std::cout << drawStartX << "," << drawStartY << "   " << drawEndX << "," << drawEndY << "\n";
-
-				for (int y = drawStartY; y < drawEndY; y++) {
-					texY = (((-y * 256 + pbuff.y * 128 + spriteHeight * 128) * spriteSize) / spriteHeight) / 256;
-					pbuff.operate([&](int x, int y) {
-						texX = int(256 * (x - (-spriteWidth / 2 + spriteScreenX)) * spriteSize / spriteWidth) / 256;
-						return textures[textureStartIndex + texY * spriteSize + texX];
-					}, drawStartX, y, drawEndX, y + 1);
-				}
+	}
+	bool swapped = false;
+	while (swapped) { // bubble sort. todo: use a more efficient sorting algorithm (but bubble sort should work fine)
+		swapped = false;
+		for (int j = 1; j < state->pcount - 1; j++) {
+			if (spriteDist[spriteOrder[j - 1]] < spriteDist[spriteOrder[j]]) { // sort from furthest to closest
+				int temp = spriteOrder[j - 1];
+				spriteOrder[j - 1] = spriteOrder[j];
+				spriteOrder[j] = temp;
+				swapped = true;
 			}
 		}
 	}
+
+	for (int j = 0; j < state->pcount - 1; j++) {
+
+		int i = spriteOrder[j] + (j >= state->id ? 1 : 0);
+		Vector2 spritePos = state->pps[i] - state->pp;
+
+		float invDet = 1.0f / (plane.x * state->pd.y - state->pd.x * plane.y);
+		Vector2 transform = Vector2(invDet * (state->pd.y * spritePos.x - state->pd.x * spritePos.y), invDet * (-plane.y * spritePos.x + plane.x * spritePos.y));
+
+		if (transform.y > 0) {
+
+			int spriteScreenX = int((pbuff.x / 2) * (1 + transform.x / transform.y));
+
+			int spriteHeight = abs(int(pbuff.y / transform.y));
+			int drawStartY = std::max(-spriteHeight / 2 + pbuff.y / 2, 0);
+			int drawEndY = std::min(spriteHeight / 2 + pbuff.y / 2, pbuff.y - 1);
+
+			int spriteWidth = spriteHeight; //abs(int(pbuff.y / transform.y));
+			int drawStartX = std::max(-spriteWidth / 2 + spriteScreenX, 0);
+			int drawEndX = std::min(spriteWidth / 2 + spriteScreenX, pbuff.x - 1);
+
+			int textureStartIndex = texturePositions[state->prs[i] == 2 ? plrItTex : plrNotItTex]; // reduce variables accessed within lambda
+
+			int texX, texY;
+
+			// debug
+			//std::cout << drawStartX << "," << drawStartY << "   " << drawEndX << "," << drawEndY << "\n";
+
+			for (int y = drawStartY; y < drawEndY; y++) {
+				texY = (((-y * 256 + pbuff.y * 128 + spriteHeight * 128) * spriteSize) / spriteHeight) / 256;
+				pbuff.operate([&](int x, int y) {
+					texX = int(256 * (x - (-spriteWidth / 2 + spriteScreenX)) * spriteSize / spriteWidth) / 256;
+					return textures[textureStartIndex + texY * spriteSize + texX];
+					}, drawStartX, y, drawEndX, y + 1);
+			}
+		}
+	}
+
 	pbuff.drawBuffer(pos);
 }
