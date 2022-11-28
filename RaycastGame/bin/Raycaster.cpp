@@ -273,12 +273,13 @@ void Raycaster::drawRaycaster(Vector2 pos) {
 			int spriteScreenX = int((pbuff.x / 2) * (1 + transform.x / transform.y));
 
 			int spriteHeight = abs(int(pbuff.y / transform.y));
-			int drawStartY = std::max(-spriteHeight / 2 + pbuff.y / 2, 0);
-			int drawEndY = std::min(spriteHeight / 2 + pbuff.y / 2, pbuff.y - 1);
+			
+			int drawStartY = max(-spriteHeight / 2 + pbuff.y / 2, 0);
+			int drawEndY = min(spriteHeight / 2 + pbuff.y / 2, pbuff.y - 1);
 
 			int spriteWidth = spriteHeight; //abs(int(pbuff.y / transform.y));
-			int drawStartX = std::max(-spriteWidth / 2 + spriteScreenX, 0);
-			int drawEndX = std::min(spriteWidth / 2 + spriteScreenX, pbuff.x - 1);
+			int drawStartX = max(-spriteWidth / 2 + spriteScreenX, 0);
+			int drawEndX = min(spriteWidth / 2 + spriteScreenX, pbuff.x - 1);
 
 			int textureStartIndex = texturePositions[state->prs[i] == 2 ? plrItTex : plrNotItTex]; // reduce variables accessed within lambda
 
@@ -290,9 +291,11 @@ void Raycaster::drawRaycaster(Vector2 pos) {
 			for (int y = drawStartY; y < drawEndY; y++) {
 				texY = (((-y * 256 + pbuff.y * 128 + spriteHeight * 128) * spriteSize) / spriteHeight) / 256;
 				pbuff.operate([&](int x, int y) {
-					texX = int(256 * (x - (-spriteWidth / 2 + spriteScreenX)) * spriteSize / spriteWidth) / 256;
-					return textures[textureStartIndex + texY * spriteSize + texX];
-					}, drawStartX, y, drawEndX, y + 1);
+					if (zbuff[x] > transform.y) {
+						texX = int(256 * (x - (-spriteWidth / 2 + spriteScreenX)) * spriteSize / spriteWidth) / 256;
+						return textures[textureStartIndex + texY * spriteSize + texX];
+					}
+				}, drawStartX, y, drawEndX, y + 1);
 			}
 		}
 	}
