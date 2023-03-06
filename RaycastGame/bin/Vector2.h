@@ -15,6 +15,7 @@ public:
 	Vector2 flr();
 	Vector2 unit();
 	float length();
+	float lengthSquared();
 	bool oob(Vector2);
 
 	friend Vector2 operator+(Vector2 v1, Vector2 v2);

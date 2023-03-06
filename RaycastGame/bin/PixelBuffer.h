@@ -4,14 +4,16 @@
 #include <functional>
 #include <iostream>
 #include <array>
+#include <cstdint>
 
 #include "Vector2.h"
 
 class PixelBuffer
 {
 public:
-	int x, y, z, q, r;
+	int x, y, z, p, q, r;
 	unsigned char* buff;
+	uint32_t* rgbBuff;
 	uint8_t i;
 	uint32_t o;
 

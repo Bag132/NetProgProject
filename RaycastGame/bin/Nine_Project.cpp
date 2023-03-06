@@ -89,13 +89,87 @@ void mouse(GLFWwindow* window, double x, double y) {
 }
 
 int main() {
+	char inChar = 'a';
+	while (inChar != 'j' && inChar != 'h') {
+		std::cout << "Would you like to (j)oin or (h)ost a game: ";
+		std::cin >> inChar;
+	}
+
+	uint32_t ip = 0;
+	std::string ipString;
+	if(inChar == 'j') { // client
+		loop: while (ip == 0) {
+			try {
+				std::cout << "Please enter the IP address: ";
+				std::cin >> ipString;
+				int lastPart = 0, part;
+				for (int i = 0; i < 4; i++) {
+					int part = ipString.find('.', lastPart + 1);
+					ip |= std::stoi(ipString.substr(lastPart + 1, part)) << (8 * (3 - i));
+					lastPart = part;
+				}
+			} catch (std::invalid_argument) {
+				ip = 0;
+			}
+		}
+	}
+
+	// std::cout << ip << "\n"; // debug
+
+	/*
+	int port = -1;
+	while (true) {
+		std::cout << "Please enter the port number (0 - 25565): ";
+		std::cin >> port;
+		if (port > 0 && port <= 25565) {
+			break;
+		}
+	*/
+
+	GameState gamestate = GameState();
+
+	PlayerState serverState = { 0.f, 0.f, 0.f }, clientState = { 0.f, 0.f, 0.f };
+
+	if (inChar == 'j') {
+		gamestate.client.SetPlayerState(clientState);
+		std::thread clientThread(&Client::Connect, &gamestate.client, ipString);
+		puts("Joining game...\n");
+		while (!gamestate.client.JoinedServer())
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		}
+	} else {
+		gamestate.server.SetPlayerState(serverState);
+		std::thread serverThread(&Server::Serve, &gamestate.server);
+
+		printf("ClientJoined() = %d\n", gamestate.server.ClientJoined());
+		puts("Waiting for client to join....\n");
+		while (!gamestate.server.ClientJoined()) // lalala too lazy to use mutex idcidc
+		{
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
+		}
+
+		puts("Press enter to start game...\n");
+		std::string e;
+		std::getline(std::cin, e);
+
+		gamestate.server.startGame(false);
+	}
+
 	window = initWindow();
-	gamestate = GameState(Vector2(2, 2));
+	gamestate.id = gamestate.addPlayer(0);
+
+	//test code
+	gamestate.addPlayer(1);
+	//not test code
+
+	gamestate.startGame();
+	gamestate.setLocalPlayerPosition();
 	//glfwSetKeyCallback(window, input);
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	//if (glfwRawMouseMotionSupported())
 	//	glfwSetInputMode(window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
 	glfwSetCursorPosCallback(window, mouse);
-	Raycaster raycaster = Raycaster(&gamestate, SIZE_X, SIZE_Y, SCALE, true);
+	Raycaster raycaster = Raycaster(&gamestate, SIZE_X, SIZE_Y, SCALE, false);
 	return renderLoop(window, raycaster);
 }
